@@ -1,0 +1,40 @@
+# Spring active profile
+#spring.profiles.active=${SPRING_PROFILES_ACTIVE:dev}
+spring.profiles.active: ${SPRING_PROFILES_ACTIVE:dev}
+
+#testValue="What is this?"
+testValue: "What is this?"
+
+
+# AWS Lambda Function
+#function.name=awsLambdaS3Function
+#spring.jmx.enabled=true
+function.name: awsLambdaS3Function
+spring.jmx.enabled: true
+
+
+
+hystrix:
+  command.default.execution.isolation.thread.timeoutInMilliseconds: 20000
+
+ribbon-config:
+  ribbon:
+    eureka:
+      enabled: true
+    NFLoadBalancerRuleClassName: com.ebsco.common.canary.core.config.CanaryLoadBalancerRule
+    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+    DeploymentContextBasedVipAddresses: discover.shared.textaccess
+    ServerListRefreshInterval: 15000
+    #NIWSServerListClassName: com.netflix.loadbalancer.ConfigurationBasedServerList
+    #listOfServers: localhost:8081
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    registerWithEureka: false
+    fetchRegistry: true
+    eurekaServerPort: 8761
+    eurekaServerURLContext: eureka
+    serviceUrl:
+      defaultZone: "http://eureka.vpca.us-east-1.eis-deliverydevqa.cloud:8761/eureka/"
